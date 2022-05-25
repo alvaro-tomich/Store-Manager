@@ -1,11 +1,11 @@
 const salesModel = require('../models/salesModel');
 
-const getProducts = (id = null) => {
+const getSales = (id = null) => {
     if (id) {
       return salesModel.getById(id);
     } 
 
-   return salesModel.getProducts(); 
+   return salesModel.getSales(); 
 };
 
-module.exports = { getProducts };
+module.exports = { getSales };
