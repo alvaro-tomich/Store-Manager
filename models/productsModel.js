@@ -6,4 +6,10 @@ const getProducts = () => {
     return products;
 };
 
-module.exports = { getProducts };
+const getById = (id) => {
+    const product = connection.execute('SELECT * FROM StoreManager.products WHERE id = ?', [id]);
+
+    return product;
+};
+
+module.exports = { getProducts, getById };
