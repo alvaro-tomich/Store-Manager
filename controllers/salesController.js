@@ -1,7 +1,7 @@
 const express = require('express');
 
 const route = express.Router();
-const salesService = require('../services/productsService');
+const salesService = require('../services/salesService');
 
 route.get('/', async (_req, res) => {
   const [products] = await salesService.getProducts();
