@@ -11,7 +11,7 @@ route.get('/', async (_req, res) => {
 
 route.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const [product] = await productsService.getProducts(id);
+  const [[product]] = await productsService.getProducts(id);
 
   res.status(200).json(product);
 });
