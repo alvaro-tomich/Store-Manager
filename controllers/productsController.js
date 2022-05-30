@@ -2,6 +2,7 @@ const express = require('express');
 
 const route = express.Router();
 const productsService = require('../services/productsService');
+const productsMiddleware = require('../middlewares/productsMiddleware');
 
 route.get('/', async (_req, res) => {
   const [products] = await productsService.getProducts();
@@ -17,7 +18,7 @@ route.get('/:id', async (req, res) => {
   res.status(200).json(product);
 });
 
-route.post('/', async (req, res) => {
+route.post('/', productsMiddleware, async (req, res) => {
   const { name, quantity } = req.body;
   const [products] = await productsService.getProducts();
   const findProduct = products.some((product) => product.name === name);
