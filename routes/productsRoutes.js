@@ -7,5 +7,6 @@ const productsMiddleware = require('../middlewares/productsMiddleware');
 route.get('/', productsController.get);
 route.get('/:id', productsController.getById);
 route.post('/', productsMiddleware, productsController.addProduct);
+route.put('/:id', productsController.updateProduct);
 
 module.exports = route;
