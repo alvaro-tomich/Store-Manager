@@ -10,8 +10,8 @@ const getProducts = (id = null) => {
 
 const addProduct = async (name, quantity) => {
   const product = await productsModel.add(name, quantity);
-  
+
   return product;
 };
 
-module.exports = { getProducts };
+module.exports = { getProducts, addProduct };
