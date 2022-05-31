@@ -30,4 +30,10 @@ const getById = async (id) => {
     return product.map(serializeById);
 };
 
-module.exports = { getSales, getById };
+const addSale = async () => {
+  const [sale] = await connection.execute('INSERT INTO StoreManager.sales (date) VALUES(NOW())');
+
+  return sale.insertId;
+};
+
+module.exports = { getSales, getById, addSale };
