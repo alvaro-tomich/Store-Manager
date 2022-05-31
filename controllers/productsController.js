@@ -31,11 +31,11 @@ const updateProduct = async (req, res) => {
   const { name, quantity } = req.body;
   const findProduct = products.some((product) => product.id === parseInt(id, 10));
 
-  if (findProduct) return res.status(404).json({ message: 'Product not found' });
+  if (!findProduct) return res.status(404).json({ message: 'Product not found' });
   
   const update = await productsService.updateProduct(id, name, quantity);
 
-  res.status(200).json(update);
+  res.status(200).json({ id: update.id, name: update.name, quantity: update.quantity });
 };
 
 module.exports = { get, getById, addProduct, updateProduct };
