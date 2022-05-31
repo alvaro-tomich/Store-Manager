@@ -48,7 +48,7 @@ const deleteProduct = async (req, res) => {
   const product = await productsService.deleteProduct(id);
   console.log(product);
 
-  res.status(204);
+  res.status(204).end();
 };
 
 module.exports = { get, getById, addProduct, updateProduct, deleteProduct };
