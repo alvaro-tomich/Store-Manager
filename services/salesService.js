@@ -8,4 +8,21 @@ const getSales = (id = null) => {
    return salesModel.getSales(); 
 };
 
-module.exports = { getSales };
+const addSale = async (itemsSold) => {
+  const id = await salesModel.addSale();
+
+  const itemsSoldPromisse = [];
+  itemsSold.map((item) => itemsSoldPromisse.push(salesModel.addSaleProduct(
+    id,
+    item.productId,
+    item.quantity,
+)));
+  const itemsSoldResolved = await Promise.all(itemsSoldPromisse);
+
+  return {
+    id,
+    itemsSold: itemsSoldResolved,
+  };
+}; 
+
+module.exports = { getSales, addSale };
