@@ -20,4 +20,10 @@ const updateProduct = async (id, name, quantity) => {
   return product;
 };
 
-module.exports = { getProducts, addProduct, updateProduct };
+const deleteProduct = async (id) => {
+  const product = await productsModel.deleteProduct(id);
+
+  return product;
+};
+
+module.exports = { getProducts, addProduct, updateProduct, deleteProduct };
