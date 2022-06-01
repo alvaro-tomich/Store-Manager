@@ -16,9 +16,9 @@ const getById = async (req, res) => {
 };
 
 const addSale = async (req, res) => {
-  const result = await salesService.addSale(req.body);
+  const sale = await salesService.addSale(req.body);
 
-  res.status(201).json(result);
+  res.status(201).json(sale);
 };
 
 const updateSale = async (req, res) => {
