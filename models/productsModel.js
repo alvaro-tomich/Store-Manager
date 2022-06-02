@@ -46,6 +46,6 @@ const deleteProduct = async (id) => {
     return product;
 };
 
-console.log('testes22');
+console.log('test');
 
 module.exports = { getProducts, getById, add, updateProduct, deleteProduct };
