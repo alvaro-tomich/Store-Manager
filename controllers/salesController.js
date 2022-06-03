@@ -9,7 +9,6 @@ const get = async (_req, res) => {
 const getById = async (req, res) => {
   const { id } = req.params;
   const sale = await salesService.getSales(id);
-  console.log(sale);
   if (sale.length === 0) return res.status(404).json({ message: 'Sale not found' });
 
   res.status(200).json(sale);
@@ -18,7 +17,11 @@ const getById = async (req, res) => {
 const addSale = async (req, res) => {
   const sale = await salesService.addSale(req.body);
 
-  res.status(201).json(sale);
+  if (sale === 'true') {
+    return res.status(422).json({ message: 'Such amount is not permitted to sell' });
+  }
+
+  return res.status(201).json(sale);
 };
 
 const updateSale = async (req, res) => {
