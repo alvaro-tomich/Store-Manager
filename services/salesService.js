@@ -1,4 +1,5 @@
 const salesModel = require('../models/salesModel');
+const updateQuantity = require('../utils/updateQuantity');
 
 const getSales = (id = null) => {
     if (id) {
@@ -10,6 +11,7 @@ const getSales = (id = null) => {
 
 const addSale = async (itemsSold) => {
   const id = await salesModel.addSale();
+  await updateQuantity.addSale(itemsSold);
 
   const itemsSoldPromisse = [];
   itemsSold.map((item) => itemsSoldPromisse.push(salesModel.addSaleProduct(
@@ -30,6 +32,9 @@ const updateSale = async (saleId, productId, quantity) => {
    return { saleId, itemUpdated: [{ productId, quantity }] };
 };
 
-const deleteSale = (saleId) => salesModel.deleteSale(saleId);
+const deleteSale = async (saleId) => {
+  await updateQuantity.removeSale(saleId);
+  return salesModel.deleteSale(saleId);
+};
 
 module.exports = { getSales, addSale, updateSale, deleteSale };
