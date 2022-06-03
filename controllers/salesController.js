@@ -30,4 +30,15 @@ const updateSale = async (req, res) => {
   res.status(200).json(result);
 };
 
-module.exports = { get, getById, addSale, updateSale };
+const deleteSale = async (req, res) => {
+  const { id } = req.params;
+  const sales = await salesService.getSales();
+
+  const findSale = sales.some((sale) => sale.id === parseInt(id, 10));
+
+  if (!findSale) return res.status(404).json({ message: 'Sale not found' });
+
+  res.status(204).end();
+};
+
+module.exports = { get, getById, addSale, updateSale, deleteSale };
