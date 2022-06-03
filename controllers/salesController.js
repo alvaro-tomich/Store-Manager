@@ -32,12 +32,8 @@ const updateSale = async (req, res) => {
 
 const deleteSale = async (req, res) => {
   const { id } = req.params;
-  const sales = await salesService.getSales();
 
-  const findSale = sales.some((sale) => sale.id === parseInt(id, 10));
-
-  if (!findSale) return res.status(404).json({ message: 'Sale not found' });
-
+  salesService.deleteSale(id);
   res.status(204).end();
 };
 
