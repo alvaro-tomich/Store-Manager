@@ -8,11 +8,13 @@ const addSale = async (itemsSold) => {
         itemsSold.forEach((item) => {
           if (product.id === item.productId) {
             newQuantity = product.quantity - item.quantity;
-            productsModel.updateProduct(product.id, product.name, newQuantity);
-            console.log(newQuantity);
+            if (newQuantity >= 0) {
+              productsModel.updateProduct(product.id, product.name, newQuantity);
+            }
           }
         });
       });
+  return newQuantity;
 };
 
 const removeSale = async (saleId) => {
@@ -24,7 +26,6 @@ const removeSale = async (saleId) => {
         if (sale.productId === product.id) {
           newQuantity = product.quantity + sale.quantity;
           productsModel.updateProduct(product.id, product.name, newQuantity);
-          console.log(newQuantity);
         }
       });
     }); 
