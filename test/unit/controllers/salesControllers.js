@@ -99,3 +99,28 @@ describe('Ao chamar o controller do update', () => {
         });
     });
 });
+
+describe('Ao chamar o controller do delete', () => {
+    describe('Em caso positivo', () => {
+        const response = {};
+        const request = {};
+
+        before(() => {
+            request.params = { id: 1 }
+            response.status = sinon.stub().returns(response);
+            response.end = sinon.stub().returns();
+
+            sinon.stub(salesService, 'deleteSale').resolves();
+        });
+
+        after(() => {
+            salesService.deleteSale.restore();
+        });
+
+        it('É chamado com status 204', async () => {
+            await salesController.deleteSale(request, response);
+            expect(response.status.calledWith(204)).to.be.equal(true);
+        });
+    });
+});
+
