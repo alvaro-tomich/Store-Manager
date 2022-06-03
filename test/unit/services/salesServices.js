@@ -45,3 +45,24 @@ describe('Adiciona uma venda no db', () => {
         });
     });
 })
+
+describe('Deleta uma venda no db', () => {
+    describe('Em caso positivo', () => {
+
+         before(() => {
+            const execute = { affectedRows: 1 };
+
+            sinon.stub(salesModel, 'deleteSale').resolves(execute);
+        });
+    
+        after(() => {
+            salesModel.deleteSale.restore();
+        });
+
+        it('Retorna as linhas afetadas', async () => {
+            const sale = await salesService.deleteSale(1);
+            expect(sale).to.be.a('object');
+            expect(sale.affectedRows).to.be.equal(1);
+        });
+    });
+})
