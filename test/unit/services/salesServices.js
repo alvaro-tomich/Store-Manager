@@ -3,6 +3,7 @@ const { expect } = require('chai');
 
 const salesService = require('../../../services/salesService');
 const salesModel = require('../../../models/salesModel');
+const updateQuantity = require('../../../utils/updateQuantity');
 
 describe('Busca as vendas no db', () => {
 
@@ -31,11 +32,13 @@ describe('Adiciona uma venda no db', () => {
             sinon.stub(salesModel, 'addSale').resolves(response);
             const execute = { id: response, itemsSold: [ { productId: 1, quantity: 10 } ] };
             sinon.stub(salesModel, 'addSaleProduct').resolves(execute);
+            sinon.stub(updateQuantity, 'addSale').resolves();
         });
     
         after(() => {
             salesModel.addSale.restore();
             salesModel.addSaleProduct.restore();
+            updateQuantity.addSale.restore();
         });
 
         it('Retorna um objeto', async () => {
@@ -53,10 +56,12 @@ describe('Deleta uma venda no db', () => {
             const execute = { affectedRows: 1 };
 
             sinon.stub(salesModel, 'deleteSale').resolves(execute);
+            sinon.stub(updateQuantity, 'removeSale').resolves();
         });
     
         after(() => {
             salesModel.deleteSale.restore();
+            updateQuantity.removeSale.restore();
         });
 
         it('Retorna as linhas afetadas', async () => {
