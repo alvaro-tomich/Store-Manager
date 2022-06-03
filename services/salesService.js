@@ -11,7 +11,8 @@ const getSales = (id = null) => {
 
 const addSale = async (itemsSold) => {
   const id = await salesModel.addSale();
-  await updateQuantity.addSale(itemsSold);
+  const newQuantity = await updateQuantity.addSale(itemsSold);
+  if (newQuantity < 0) return 'true';
 
   const itemsSoldPromisse = [];
   itemsSold.map((item) => itemsSoldPromisse.push(salesModel.addSaleProduct(
