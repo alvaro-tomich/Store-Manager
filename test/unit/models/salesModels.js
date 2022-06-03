@@ -66,7 +66,7 @@ describe('Insere uma nova venda no db', () => {
     describe('Em caso positivo', () => {
 
         before(async () => {
-            const execute = [{ id: 3, itemsSold: [{ productId: 1, quantity: 2 }]}];
+            const execute = [{ id: 3 }];
     
             sinon.stub(connection, 'execute').resolves(execute);
           });
@@ -77,8 +77,28 @@ describe('Insere uma nova venda no db', () => {
 
         it('retorna um objeto', async () => {
             const insertProduct = await salesModel.addSaleProduct([{ productId: 1, quantity: 2}]);
-
-            expect(insertProduct).to.be.an('object');
+            expect(insertProduct).to.have.a.property('productId')
         });
     })
+});
+
+describe('Deleta uma venda no db', () => {
+  describe('Em caso positivo', () => {
+
+      before(async () => {
+          const execute = [{ affectedRows: 1 }];
+  
+          sinon.stub(connection, 'execute').resolves(execute);
+        });
+  
+        after(async () => {
+          connection.execute.restore();
+        });
+
+      it('retorna um objeto', async () => {
+          const insertProduct = await salesModel.deleteSale(1);
+          console.log(insertProduct);
+          expect(insertProduct).to.be.equal(1);
+      });
+  })
 });
