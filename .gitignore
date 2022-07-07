@@ -292,3 +292,6 @@ $RECYCLE.BIN/
 
 coverage
 .nyc*
+
+publisher.sh
+trybe-filter-repo.sh
